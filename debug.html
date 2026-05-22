@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>Form Debug</title>
+<style>
+  body { font-family: monospace; padding: 20px; background: #f5f5f5; }
+  .log { background: white; margin: 8px 0; padding: 12px; border-left: 4px solid #ccc; }
+  .pass { border-left-color: #28a745; color: #28a745; }
+  .fail { border-left-color: #dc3545; color: #dc3545; font-weight: bold; }
+  .info { border-left-color: #007bff; color: #007bff; }
+  h2 { margin-top: 24px; font-size: 16px; }
+</style>
+</head>
+<body>
+<h1>Form Diagnostic Log</h1>
+<div id="logs"></div>
+
+<script>
+const logsDiv = document.getElementById('logs');
+function log(msg, status = 'info') {
+  const div = document.createElement('div');
+  div.className = 'log ' + status;
+  div.textContent = msg;
+  logsDiv.appendChild(div);
+  console.log(`[${status.toUpperCase()}] ${msg}`);
+}
+
+log('Diagnostic started', 'info');
+
+// Immediate checks
+log(`window.React exists: ${typeof window.React}`, typeof window.React === 'undefined' ? 'fail' : 'pass');
+log(`window.ReactDOM exists: ${typeof window.ReactDOM}`, typeof window.ReactDOM === 'undefined' ? 'fail' : 'pass');
+
+// Check tweaks
+log(`window.__TWEAKS exists: ${typeof window.__TWEAKS}`, typeof window.__TWEAKS === 'undefined' ? 'fail' : 'pass');
+</script>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script>
+log('After CDN load', 'info');
+log(`window.React: ${typeof window.React}`, typeof window.React !== 'undefined' ? 'pass' : 'fail');
+log(`window.ReactDOM: ${typeof window.ReactDOM}`, typeof window.ReactDOM !== 'undefined' ? 'pass' : 'fail');
+log(`window.Babel: ${typeof window.Babel}`, typeof window.Babel !== 'undefined' ? 'pass' : 'fail');
+
+// Try to load component files
+log('Attempting to load form components...', 'info');
+</script>
+
+<script type="text/babel" src="src/tweaks-panel.jsx"></script>
+<script type="text/babel" src="src/fields.jsx"></script>
+<script type="text/babel" src="src/sections/welcome.jsx"></script>
+
+<script>
+log(`window.Welcome: ${typeof window.Welcome}`, typeof window.Welcome !== 'undefined' ? 'pass' : 'fail');
+log(`window.useTweaks: ${typeof window.useTweaks}`, typeof window.useTweaks !== 'undefined' ? 'pass' : 'fail');
+log(`window.Q: ${typeof window.Q}`, typeof window.Q !== 'undefined' ? 'pass' : 'fail');
+
+// Continue loading
+log('Loading remaining components...', 'info');
+</script>
+
+<script type="text/babel" src="src/sections/story.jsx"></script>
+<script type="text/babel" src="src/sections/logistics.jsx"></script>
+<script type="text/babel" src="src/sections/listing.jsx"></script>
+<script type="text/babel" src="src/sections/comms.jsx"></script>
+<script type="text/babel" src="src/sections/offer.jsx"></script>
+<script type="text/babel" src="src/sections/review.jsx"></script>
+<script type="text/babel" src="src/shell.jsx"></script>
+
+<script>
+log(`window.StorySection: ${typeof window.StorySection}`, typeof window.StorySection !== 'undefined' ? 'pass' : 'fail');
+log(`window.LogisticsSection: ${typeof window.LogisticsSection}`, typeof window.LogisticsSection !== 'undefined' ? 'pass' : 'fail');
+log(`window.ListingPrepSection: ${typeof window.ListingPrepSection}`, typeof window.ListingPrepSection !== 'undefined' ? 'pass' : 'fail');
+log(`window.CommsSection: ${typeof window.CommsSection}`, typeof window.CommsSection !== 'undefined' ? 'pass' : 'fail');
+log(`window.OfferSection: ${typeof window.OfferSection}`, typeof window.OfferSection !== 'undefined' ? 'pass' : 'fail');
+log(`window.ReviewSection: ${typeof window.ReviewSection}`, typeof window.ReviewSection !== 'undefined' ? 'pass' : 'fail');
+log(`window.Rail: ${typeof window.Rail}`, typeof window.Rail !== 'undefined' ? 'pass' : 'fail');
+log(`window.FootNav: ${typeof window.FootNav}`, typeof window.FootNav !== 'undefined' ? 'pass' : 'fail');
+log(`window.STEPS: ${typeof window.STEPS}`, Array.isArray(window.STEPS) ? 'pass' : 'fail');
+
+log('Attempting to load app.jsx...', 'info');
+</script>
+
+<script type="text/babel" src="src/app.jsx" onerror="log('ERROR loading app.jsx', 'fail')"></script>
+
+<script>
+// Final check
+setTimeout(() => {
+  const root = document.getElementById('root');
+  const hasContent = root && root.children.length > 0;
+  log(`Root div has content: ${hasContent}`, hasContent ? 'pass' : 'fail');
+
+  if (hasContent) {
+    log('Form appears to have rendered successfully!', 'pass');
+  } else {
+    log('Form did not render - check console for errors', 'fail');
+  }
+}, 1000);
+</script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+  <title>Syntax Test</title>
+  <style>
+    body { font-family: monospace; padding: 20px; }
+    .result { margin: 20px 0; padding: 10px; border: 1px solid #ccc; }
+    .good { background: #e8f5e9; color: #2e7d32; }
+    .bad { background: #ffebee; color: #c62828; }
+  </style>
+</head>
+<body>
+<h1>Component Syntax Test</h1>
+<div id="results"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+
+<script>
+const resultsDiv = document.getElementById('results');
+
+function testFile(filename, code) {
+  try {
+    Babel.transform(code, { presets: ['react'] });
+    const div = document.createElement('div');
+    div.className = 'result good';
+    div.textContent = `✓ ${filename} - syntax OK`;
+    resultsDiv.appendChild(div);
+  } catch (e) {
+    const div = document.createElement('div');
+    div.className = 'result bad';
+    div.textContent = `✗ ${filename} - ${e.message}`;
+    resultsDiv.appendChild(div);
+  }
+}
+
+// Fetch and test each file
+const files = [
+  { name: 'tweaks-panel.jsx', url: 'src/tweaks-panel.jsx' },
+  { name: 'fields.jsx', url: 'src/fields.jsx' },
+  { name: 'welcome.jsx', url: 'src/sections/welcome.jsx' },
+  { name: 'story.jsx', url: 'src/sections/story.jsx' },
+  { name: 'shell.jsx', url: 'src/shell.jsx' },
+  { name: 'app.jsx', url: 'src/app.jsx' },
+];
+
+let loaded = 0;
+files.forEach(({ name, url }) => {
+  fetch(url)
+    .then(r => r.text())
+    .then(code => testFile(name, code))
+    .catch(e => {
+      const div = document.createElement('div');
+      div.className = 'result bad';
+      div.textContent = `✗ ${name} - Failed to load (${e.message})`;
+      resultsDiv.appendChild(div);
+    })
+    .finally(() => {
+      loaded++;
+      if (loaded === files.length) {
+        const div = document.createElement('div');
+        div.className = 'result good';
+        div.textContent = `All files tested`;
+        resultsDiv.appendChild(div);
+      }
+    });
+});
+</script>
+</body>
+</html>

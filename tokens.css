@@ -1,0 +1,299 @@
+/* ==========================================================================
+   Guide Advisory Group — Design Tokens
+   Colors + Typography (single source of truth)
+   ========================================================================== */
+
+/* ---------- Fonts ----------------------------------------------------------
+   Display: Cormorant Garamond (high-contrast modern serif, substitution for
+   the custom GUIDE wordmark letterforms. FLAGGED — original uses a bespoke
+   didone-adjacent serif; this is the nearest Google Fonts match.)
+   Sans:    Jost (clean geometric, works for the wide-tracked "ADVISORY GROUP"
+   lockup and all UI text).
+   --------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Jost:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* ================================================================
+     COLOR — core palette (from Guide brand deck)
+     ================================================================ */
+  --beluga:   #F0F1F2;   /* near-white, default page background         */
+  --ballroom: #D9D3C7;   /* warm stone/linen, accent surface            */
+  --ginko:    #888C79;   /* muted sage-olive, secondary text / hairline */
+  --shadow:   #595959;   /* mid-grey, body text on light                */
+  --nero:     #262626;   /* near-black, primary ink / signage           */
+
+  /* True black + true white for protection */
+  --ink:      #0A0A0A;
+  --paper:    #FFFFFF;
+
+  /* Tints / shades used sparingly for states and dividers */
+  --nero-90:    rgba(38, 38, 38, 0.90);
+  --nero-70:    rgba(38, 38, 38, 0.70);
+  --nero-40:    rgba(38, 38, 38, 0.40);
+  --nero-12:    rgba(38, 38, 38, 0.12);
+  --nero-06:    rgba(38, 38, 38, 0.06);
+
+  --ginko-40:   rgba(136, 140, 121, 0.40);
+  --ginko-20:   rgba(136, 140, 121, 0.20);
+
+  --ballroom-60: rgba(217, 211, 199, 0.60);
+
+  /* ================================================================
+     COLOR — semantic tokens
+     ================================================================ */
+  --bg:             var(--beluga);        /* default canvas              */
+  --bg-elevated:    var(--paper);         /* cards, modals               */
+  --bg-accent:      var(--ballroom);      /* section breaks, pull quotes */
+  --bg-inverse:     var(--nero);          /* dark hero, signage          */
+
+  --fg:             var(--nero);          /* primary body ink            */
+  --fg-muted:       var(--shadow);        /* secondary body              */
+  --fg-subtle:      var(--ginko);         /* labels, meta, eyebrows      */
+  --fg-inverse:     var(--beluga);        /* text on dark surfaces       */
+
+  --line:           var(--nero-12);       /* hairline dividers, borders  */
+  --line-strong:    var(--nero-40);
+
+  --accent:         var(--nero);          /* brand uses ink as "accent"  */
+  --accent-muted:   var(--ginko);
+
+  /* States — the brand has no colorful semantic system. These are
+     tonal shifts only, in keeping with the luxury-advisory posture. */
+  --hover-ink:      #000000;              /* on dark buttons: go blacker */
+  --hover-paper:    var(--ballroom);      /* on light buttons: warm wash */
+  --press-scale:    0.985;
+
+  /* ================================================================
+     TYPOGRAPHY — families
+     ================================================================ */
+  --font-display: 'Cormorant Garamond', 'Didot', 'Bodoni Moda',
+                  'Times New Roman', serif;
+  --font-sans:    'Jost', 'Montserrat', -apple-system, BlinkMacSystemFont,
+                  'Helvetica Neue', Arial, sans-serif;
+  --font-mono:    'JetBrains Mono', 'IBM Plex Mono', ui-monospace,
+                  SFMono-Regular, Menlo, monospace;
+
+  /* ================================================================
+     TYPOGRAPHY — scale (1.250 major-third, anchored at 16px)
+     ================================================================ */
+  --fs-12: 0.75rem;     /* 12  — micro labels, legal                  */
+  --fs-13: 0.8125rem;   /* 13  — eyebrow                              */
+  --fs-14: 0.875rem;    /* 14  — meta, captions                       */
+  --fs-16: 1rem;        /* 16  — body                                 */
+  --fs-18: 1.125rem;    /* 18  — lead body                            */
+  --fs-20: 1.25rem;     /* 20  — small heading                        */
+  --fs-24: 1.5rem;      /* 24  — h4                                   */
+  --fs-32: 2rem;        /* 32  — h3                                   */
+  --fs-44: 2.75rem;     /* 44  — h2                                   */
+  --fs-60: 3.75rem;     /* 60  — h1                                   */
+  --fs-88: 5.5rem;      /* 88  — display                              */
+  --fs-128: 8rem;       /* 128 — hero wordmark                        */
+
+  --lh-tight:   1.02;
+  --lh-snug:    1.15;
+  --lh-normal:  1.45;
+  --lh-relaxed: 1.6;
+
+  /* Tracking. The Guide wordmark's sub-line uses WIDE tracking (~0.24em).
+     We codify three tracking presets. */
+  --track-tight:  -0.01em;
+  --track-normal:  0;
+  --track-wide:    0.14em;
+  --track-wider:   0.24em;   /* the "ADVISORY GROUP" look            */
+
+  /* ================================================================
+     SPACING — 4px base
+     ================================================================ */
+  --s-1:  4px;
+  --s-2:  8px;
+  --s-3:  12px;
+  --s-4:  16px;
+  --s-5:  20px;
+  --s-6:  24px;
+  --s-8:  32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-16: 64px;
+  --s-20: 80px;
+  --s-24: 96px;
+  --s-32: 128px;
+
+  /* ================================================================
+     RADII — tight, architectural. No pill shapes.
+     ================================================================ */
+  --r-0: 0;
+  --r-1: 1px;
+  --r-2: 2px;
+  --r-4: 4px;
+  --r-8: 8px;
+
+  /* ================================================================
+     SHADOW — restrained; mostly hairlines and soft elevation
+     ================================================================ */
+  --shadow-hairline: 0 0 0 1px var(--nero-12);
+  --shadow-low:      0 1px 2px rgba(38, 38, 38, 0.04),
+                     0 1px 1px rgba(38, 38, 38, 0.03);
+  --shadow-med:      0 8px 24px -12px rgba(38, 38, 38, 0.18),
+                     0 2px 6px rgba(38, 38, 38, 0.06);
+  --shadow-high:     0 24px 48px -24px rgba(38, 38, 38, 0.28),
+                     0 4px 12px rgba(38, 38, 38, 0.08);
+
+  /* ================================================================
+     MOTION — slow, confident, never bouncy
+     ================================================================ */
+  --ease-standard: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-entry:    cubic-bezier(0, 0, 0.2, 1);
+  --ease-exit:     cubic-bezier(0.4, 0, 1, 1);
+  --dur-fast:   160ms;
+  --dur-base:   240ms;
+  --dur-slow:   420ms;
+  --dur-lux:    640ms;   /* curtain-reveal pace for hero moments     */
+
+  /* ================================================================
+     LAYOUT
+     ================================================================ */
+  --content-max:  1240px;
+  --gutter:       var(--s-8);
+}
+
+/* ==========================================================================
+   SEMANTIC ELEMENT STYLES
+   Apply these as base styles inside the design system preview.
+   ========================================================================== */
+
+html {
+  color-scheme: light;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: var(--fs-16);
+  font-weight: 400;
+  line-height: var(--lh-normal);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headings use the display serif, tight tracking, snug leading. */
+h1, .h1 {
+  font-family: var(--font-display);
+  font-size: clamp(var(--fs-44), 5.5vw, var(--fs-88));
+  font-weight: 400;
+  letter-spacing: var(--track-tight);
+  line-height: var(--lh-tight);
+  color: var(--fg);
+  margin: 0 0 var(--s-6);
+}
+
+h2, .h2 {
+  font-family: var(--font-display);
+  font-size: clamp(var(--fs-32), 3.2vw, var(--fs-60));
+  font-weight: 400;
+  letter-spacing: var(--track-tight);
+  line-height: var(--lh-snug);
+  color: var(--fg);
+  margin: 0 0 var(--s-5);
+}
+
+h3, .h3 {
+  font-family: var(--font-display);
+  font-size: var(--fs-32);
+  font-weight: 400;
+  line-height: var(--lh-snug);
+  margin: 0 0 var(--s-4);
+}
+
+h4, .h4 {
+  font-family: var(--font-sans);
+  font-size: var(--fs-20);
+  font-weight: 500;
+  letter-spacing: var(--track-normal);
+  line-height: var(--lh-snug);
+  margin: 0 0 var(--s-3);
+}
+
+/* Eyebrow — the workhorse label style. Small caps, wide tracking. */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--fs-12);
+  font-weight: 500;
+  letter-spacing: var(--track-wider);
+  text-transform: uppercase;
+  color: var(--fg-subtle);
+}
+
+/* Wordmark treatment — replicates the logo's setting. */
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: var(--track-wide);
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.wordmark-sub {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  letter-spacing: var(--track-wider);
+  text-transform: uppercase;
+  font-size: 0.34em;
+}
+
+p, .body {
+  font-size: var(--fs-16);
+  line-height: var(--lh-relaxed);
+  color: var(--fg-muted);
+  margin: 0 0 var(--s-4);
+  max-width: 62ch;
+}
+
+.lead {
+  font-size: var(--fs-20);
+  line-height: var(--lh-relaxed);
+  color: var(--fg);
+  max-width: 52ch;
+}
+
+.meta {
+  font-size: var(--fs-13);
+  color: var(--fg-subtle);
+  letter-spacing: var(--track-wide);
+  text-transform: uppercase;
+}
+
+small, .caption {
+  font-size: var(--fs-14);
+  color: var(--fg-subtle);
+  line-height: var(--lh-normal);
+}
+
+code, .mono {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+}
+
+a {
+  color: var(--fg);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line-strong);
+  transition: color var(--dur-fast) var(--ease-standard),
+              border-color var(--dur-fast) var(--ease-standard);
+}
+a:hover {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: var(--s-8) 0;
+}
+
+/* ---- Utility classes often reused across preview cards ------------------- */
+.surface        { background: var(--bg-elevated); }
+.surface-accent { background: var(--bg-accent); }
+.surface-ink    { background: var(--bg-inverse); color: var(--fg-inverse); }
+.hairline       { border: 1px solid var(--line); }
